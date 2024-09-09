@@ -32,4 +32,4 @@ model = create_baseline_model((128, 128, 3))
 # model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
 
 # Save the model
-model.save('best_model.h5')
+model.save('best_model.keras')
