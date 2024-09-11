@@ -22,7 +22,7 @@ model = create_depth_ordering_model((128, 128, 3))
 
 callbacks = [
     EarlyStopping(patience=5, restore_best_weights=True),
-    ModelCheckpoint('best_model.h5', save_best_only=True)
+    ModelCheckpoint('best_model.keras', save_best_only=True)
 ]
 
 # Assume X_train, y_train_inter, and y_train_intra are preprocessed datasets
@@ -31,4 +31,4 @@ y_train = {'inter_depth': y_train_inter, 'intra_depth': y_train_intra}
 model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.2, callbacks=callbacks)
 
 # Save the model
-model.save('best_model.h5')
+model.save('best_model.keras')
