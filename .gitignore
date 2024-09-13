@@ -1,8 +1,10 @@
 .vscode/settings.json
+.venv/
 data/images/train
 data/images/val
+data/processed
 annotations/train-annotations.json
 annotations/val-annotations.json
 annotations/depth_TEST_segments.json
-best_model.h5
 best_model.keras
+baseline_model.keras

@@ -61,7 +61,7 @@ for ann in ground_truth_data['annotations']:
     }
 
 # Load the trained model
-model = load_model('best_model.h5')
+model = load_model('best_model.keras')
 
 # Load validation images
 X_val = []

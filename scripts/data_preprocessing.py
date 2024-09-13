@@ -4,9 +4,9 @@ import json
 import pandas as pd
 
 # Define paths
-data_dir = './data/images/'
+data_dir = './data/images/train/'
 processed_data_dir = './data/processed/'
-annotations_file = './data/annotations.json'
+annotations_file = './annotations/train-annotations.json'
 
 # Create the processed data directory if it does not exist
 if not os.path.exists(processed_data_dir):
@@ -51,4 +51,4 @@ for img_info in annotations['images']:
 df = pd.DataFrame(csv_data, columns=['img_id', 'category_id', 'pred_Intradepth', 'pred_Interdepth'])
 
 # Save the DataFrame to a CSV file
-df.to_csv(os.path.join(processed_data_dir, 'predictions.csv'), index=False)
+df.to_csv(os.path.join(processed_data_dir, 'train-predictions.csv'), index=False)
