@@ -1,0 +1,12 @@
+Evaluation written on: 2024-09-14 21:22:43
+Model: ./models/baseline_model.keras
+MSE of Inter-depth: 1.8117877809480472
+MSE of Intra-depth: 2.6469771293388993
+Overall MSE: 2.2293824551434733
+
+Evaluation written on: 2024-09-15 23:47:47
+Model: ./models/best_model.pth
+MSE of Inter-depth: 1.7349988232510702
+MSE of Intra-depth: 2.8160411275068586
+Overall MSE: 2.2755199753789643
+

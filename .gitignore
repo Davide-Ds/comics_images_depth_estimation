@@ -8,3 +8,5 @@ annotations/val-annotations.json
 annotations/depth_TEST_segments.json
 best_model.keras
 baseline_model.keras
+scripts/__pycache__
+models/

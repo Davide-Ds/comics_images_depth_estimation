@@ -1,7 +1,7 @@
 # Import necessary libraries
 import tensorflow as tf
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Input
-from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Input # type: ignore
+from tensorflow.keras.models import Model # type: ignore
 import numpy as np
 import os
 import cv2
@@ -85,7 +85,7 @@ def create_baseline_model(input_shape):
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae','mae'])
     return model
 
-# Esempio di utilizzo della funzione
+# process the training set
 data_dir = './data/images/train/'
 annotations_file = './annotations/train-annotations.json'
 X_train, y_train_intra, y_train_inter = prepare_dataset(data_dir, annotations_file)
@@ -101,5 +101,5 @@ y_train = {'inter_depth': y_train_inter, 'intra_depth': y_train_intra}
 model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2)
 
 # Save the model
-model.save('baseline_model.keras')
+model.save('./models/baseline_model.keras')
 
