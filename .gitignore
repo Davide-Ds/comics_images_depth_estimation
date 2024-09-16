@@ -1,7 +1,6 @@
 .vscode/settings.json
 .venv/
-data/images/train
-data/images/val
+data/images/
 data/processed
 annotations/train-annotations.json
 annotations/val-annotations.json

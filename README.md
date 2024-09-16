@@ -1,73 +1,144 @@
-### Depth Estimation Challenge
-![depth](https://github.com/IVRL/AI4VA/assets/16324609/0e431cd4-8fc2-40be-ab50-90d179db3ec3)
+# Depth Estimation in Comics Images
 
-#### Overview
+## Overview
 
-Our workshop features three challenges focusing on applying computer vision to visual arts, centered around the AI4VA dataset. This dataset, a first-of-its-kind benchmark, is designed to evaluate vision models’ ability to interpret comic art, focusing on segmentation, depth, and saliency. It includes detailed annotations of diverse comic styles, such as the toon-styled 'Placid & Muzo'.
+This project focuses on solving the problem of **depth estimation** in comics images proposed in the [AI for Visual Arts Challenges (AI4VA) on Depth and Saliency](https://github.com/IVRL/AI4VA/tree/main). 
 
-#### Challenge Description
+Comics present unique challenges for depth estimation, such as exaggerated perspectives and non-realistic visual elements, making it difficult to accurately infer depth from these stylized images. The goal of this project is to predict two types of depth values: **intra-depth** (depth within objects) and **inter-depth** (depth between objects).
 
-In the depth estimation challenge, participants are tasked with developing models to accurately estimate the depth of various elements within comic art images. The goal is to create models that can infer the relative distances of objects from the viewer, providing a depth map that accurately represents the scene's 3D structure.
+We use deep learning models based on **Convolutional Neural Networks (CNNs)** to extract visual features from comics images and predict these depth values.
 
-#### Dataset
+## Dataset
 
-The AI4VA dataset consists of images with detailed depth annotations specific to the depth estimation task. These annotations include:
+The **AI4VA dataset** is used in this project, consisting of comics images annotated with depth information. The dataset covers various comic styles and includes:
+- **Depth Annotations**: Ground truth depth values for different image segments.
+- **Comics Styles**: Depth annotations across different visual styles, requiring the model to generalize effectively.
 
-- **Depth Annotations**: Ground truth depth values for each segment in the images.
-- **Variety of Comic Styles**: Depth annotations for two comic styles, challenging the model's ability to generalize across different visual representations.
+You can download the dataset from: [Google Drive](https://drive.google.com/drive/folders/1C5ER7Trz7I-oyzV7YndNZZ6UJMuNTH10?usp=sharing).
 
-The dataset covers a diverse array of comic art styles, providing a comprehensive challenge for model accuracy and generalization.
+## Installation and Setup
 
-#### Step-by-Step Plan for Depth Ordering
-1. **Setup Environment**
+First, install the necessary libraries using the following command:
 
-    Install necessary libraries (TensorFlow, PyTorch, OpenCV, etc.).
-    ```bash
-    pip install tensorflow torch torchvision opencv-python matplotlib
-    ```
-    Ensure GPU support for faster training if available.
+```bash
+pip install requirements.txt
+```
 
-2. **Download and Prepare Dataset**
+Ensure GPU support is available for faster model training.
 
-    Download the images and the annotations from: [Google Drive](https://drive.google.com/drive/folders/1C5ER7Trz7I-oyzV7YndNZZ6UJMuNTH10?usp=sharing).
+## Project Structure
 
-3. **Organize Dataset**
+- **scripts/data_prepocessing.py**: module to load and preprocess the dataset. This includes normalizing images, resizing them to a uniform size, and loading depth annotations.
+  
 
-    Place the training and validation images into their respective folders. Verify the dataset structure and understand the contents.
+- **scripts/train_model.py**: Trains the model for depth estimation using CNN architectures. 
 
-4. **Data Exploration**
+- **scripts/evaluate_model.py**: Evaluates the model on validation data and calculates the **mean squared error (MSE)** for intra-depth and inter-depth predictions. The results are saved to a text file with timestamps.
 
-    Use the provided notebook `show_annotations_depth (1).ipynb` to explore the dataset and the annotations.
-    Visualize a few images and their corresponding depth maps to understand the data.
+- **scripts/inference.py**: Runs inference on test images using the latest trained model and generates predictions, which are saved to a CSV file.
 
-5. **Baseline Model**
+## Step-by-Step Guide
 
-    Run the baseline model provided in `models/baseline_model.py`.
-    Understand the preprocessing steps, model architecture, and evaluation metrics used.
+### 1. Setup Environment
+   Install the required libraries:
 
-6. **Data Preprocessing**
+   ```bash
+   pip install requirements.txt
+   ```
 
-    Modify `scripts/data_preprocessing.py` to preprocess the data for depth ordering.
+### 2. Download the Dataset
+   Download the comics dataset from the provided Google Drive link and organize it in the following structure:
+   
+   ```plaintext
+   data/
+    ├── images/
+       ├── train/
+       ├── val/
+       ├── test/
+   annotations/
+       ├── train-annotations.json
+       ├── val-annotations.json
+       ├── depth_TEST_segments.json
+   ```
+### 3. Data Exploration
 
-7. **Model Development**
+    Use the provided notebook "show_annotations_depth.ipynb" to explore the dataset and the annotations. Visualize a few images and their corresponding depth maps to understand the data.
 
-    Enhance `scripts/train_model.py` to include a model architecture suitable for depth ordering.
+### 4. Data Preprocessing
+   Use the data_preprocessing.py script to load and preprocess images and annotations.
 
-8. **Model Training**
+   ```bash
+   python scripts/data_preprocessing.py
+   ```
 
-    Train the model using the enhanced script.
-    Monitor training and validation accuracy to avoid overfitting.
+### 5. Train the Model
+   Train the model by running the training script. The script will handle training and validation splits, early stopping, and model checkpointing.
 
-9. **Model Evaluation**
+   ```bash
+   python scripts/train_model.py
+   ```
 
-    Use `scripts/evaluate_model.py` to assess the performance of your model on the validation set.
+   The training will save the best model based on validation performance.
 
-10. **Submission Preparation**
+### 6. Evaluate the Model
+   Evaluate the trained model on validation data using the `evaluate_model.py` script. This script will load the model, run predictions on the dataset, and calculate the MSE.
 
-    Save your model's predictions and evaluation metrics in the `results/` directory.
-    Follow the submission guidelines provided on the [Codalab page. ](https://codalab.lisn.upsaclay.fr/competitions/19857)
-    Due to a server issue on Codalab, submissions are currently not being processed on Chrome and Edge browsers. Please use Firefox to submit your predictions (tested on Firefox 129.0) .
+   ```bash
+   python scripts/evaluate_model.py
+   ```
 
-By following these steps, you should be able to complete the Depth Ordering Challenge effectively. If you need further assistance with any specific part, feel free to ask by creating an issue!
+### 7. Inference on Test Data
+   Perform inference on unseen test images by running the `inference.py` script. The predictions will be saved in CSV format.
 
-We encourage participants to explore different approaches, share their findings, and collaborate to push the boundaries of computer vision in the domain of visual arts. Happy coding, and may the best model win!
+   ```bash
+   python scripts/inference.py
+   ```
+
+### 8. Results
+
+The results of the evaluation for different models are stored in the `results/` directory. The **mean squared error (MSE)** values for intra-depth and inter-depth are used to assess model performance.
+
+Example of evaluation results:
+
+```
+Evaluation written on: 2024-09-16 17:31
+Model: /path/to/best_model.pth
+MSE of Inter-depth: 1.536808777740302
+MSE of Intra-depth: 2.438350742738203
+Overall MSE: 1.9875797602392526
+```
+
+Example of inference results:
+
+```
+img_id category_id  pred_Intradepth  pred_Interdepth
+0      131          28         0.341507         0.700975
+1      158          22         0.223486         0.466395
+2      163           1         0.372284         0.699417
+3      188          16         0.344535         0.519607
+4      198          12         0.426177         0.770635
+5      207          25         0.392649         0.699364
+6      213          27         0.475495         0.848142
+7      245          24         0.337580         0.594709
+8      261          23         0.398065         0.787483
+9      269          11         0.316297         0.644748
+10     275          28         0.390858         0.697132
+11     282          12         0.418563         0.764017
+12       1          22         0.451510         0.864075
+13       8          23         0.729622         1.435773
+14      21          16         0.417270         0.823564
+15      25           1         0.271126         0.547276
+16      38          19         0.654990         1.304213
+17      62          13         0.796502         1.585559
+18      68          25         0.604128         1.144789
+19     101          24         0.445548         0.941498
+```
+
+### 9. Run the image_depth_estimation.ipynb
+This nootebook include all the pipeline's steps. Run it to have a detailed overview of the project.
+
+## Future Work
+
+Possible improvements include:
+- Experimenting with **attention mechanisms** to better capture spatial relationships in comics images.
+- Exploring **multi-task learning** by combining depth estimation with other visual tasks, such as segmentation.
