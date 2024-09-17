@@ -62,7 +62,7 @@ Ensure GPU support is available for faster model training.
    ```
 ### 3. Data Exploration
 
-    Use the provided notebook "show_annotations_depth.ipynb" to explore the dataset and the annotations. Visualize a few images and their corresponding depth maps to understand the data.
+Use the provided notebook "show_annotations_depth.ipynb" to explore the dataset and the annotations. Visualize a few images and their corresponding depth maps to understand the data.
 
 ### 4. Data Preprocessing
    Use the data_preprocessing.py script to load and preprocess images and annotations.
@@ -135,7 +135,7 @@ img_id category_id  pred_Intradepth  pred_Interdepth
 ```
 
 ### 9. Run the image_depth_estimation.ipynb
-This nootebook include all the pipeline's steps. Run it to have a detailed overview of the project.
+This [nootebook](https://github.com/Davide-Ds/comics_images_depth_estimation/blob/master/image_depth_estimation.ipynb) include all the pipeline's steps. Run it to have a detailed overview of the project.
 
 ## Future Work
 
